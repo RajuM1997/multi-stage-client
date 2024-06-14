@@ -8,10 +8,11 @@ module.exports = {
     "plugin:react-hooks/recommended",
     "plugin:testing-library/react",
   ],
+  presets: ["@babel/preset-env", "@babel/preset-react"],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parserOptions: { ecmaVersion: "latest", sourceType: "module" },
   settings: { react: { version: "18.2" } },
-  plugins: ["react-refresh"],
+  plugins: ["react-refresh", "@vitest/transform-react"],
   rules: {
     "react/jsx-no-target-blank": "off",
     "react-refresh/only-export-components": [

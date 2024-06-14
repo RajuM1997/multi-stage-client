@@ -1,3 +1,4 @@
+import React from "react";
 import { Container } from "@mui/material";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
@@ -8,54 +9,103 @@ import "./step.css";
 import Step1 from "./Step1";
 import { step1Schema, step2Schema, step3Schema } from "../../schema/formSchema";
 import axios from "axios";
-import { addSuccessfully } from "../../utils/Alert";
+import { addSuccessfully, toastError } from "../../utils/Alert";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const AllStep = () => {
   const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [formDataStep1, setFormDataStep1] = useState({});
+  const [formDataStep2, setFormDataStep2] = useState({});
+  const [formDataStep3, setFormDataStep3] = useState({});
+
+  const currentSchema =
+    step === 1 ? step1Schema : step === 2 ? step2Schema : step3Schema;
 
   const methods = useForm({
-    mode: "onChange",
-    resolver: zodResolver(
-      step === 1 ? step1Schema : step === 2 ? step2Schema : step3Schema
-    ),
-    defaultValues: formData,
+    mode: "onBlur",
+    resolver: zodResolver(currentSchema),
+    defaultValues:
+      step === 1 ? formDataStep1 : step === 2 ? formDataStep2 : formDataStep3,
   });
 
   useEffect(() => {
-    methods.reset(formData);
-  }, [formData, step, methods]);
+    switch (step) {
+      case 1:
+        methods.reset(formDataStep1);
+        break;
+      case 2:
+        methods.reset(formDataStep2);
+        break;
+      case 3:
+        methods.reset(formDataStep3);
+        break;
+      default:
+        break;
+    }
+  }, [step, formDataStep1, formDataStep2, formDataStep3, methods]);
 
   const handleNext = useCallback(async () => {
     const isValid = await methods.trigger();
     if (isValid) {
-      setFormData((prev) => ({ ...prev, ...methods.getValues() }));
-      setStep((prev) => prev + 1);
+      switch (step) {
+        case 1:
+          setFormDataStep1(methods.getValues());
+          break;
+        case 2:
+          setFormDataStep2(methods.getValues());
+          break;
+        case 3:
+          setFormDataStep3(methods.getValues());
+          break;
+        default:
+          break;
+      }
+      setStep((prevStep) => prevStep + 1);
     }
-  }, [methods]);
+  }, [methods, step]);
 
   const handlePrevious = useCallback(() => {
     if (step > 1) {
-      setFormData((prev) => ({ ...prev, ...methods.getValues() }));
-      setStep((prev) => prev - 1);
+      switch (step) {
+        case 2:
+          setFormDataStep2(methods.getValues());
+          break;
+        case 3:
+          setFormDataStep3(methods.getValues());
+          break;
+        default:
+          break;
+      }
+      setStep((prevStep) => prevStep - 1);
     }
-  }, [step, methods]);
+  }, [methods, step]);
 
   const onSubmit = async (data) => {
-    const combinedData = { ...formData, ...data };
+    setLoading(true);
+    const combinedData = {
+      ...formDataStep1,
+      ...formDataStep2,
+      ...formDataStep3,
+      ...data,
+    };
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/mars-applicant`,
         combinedData
       );
       if (res.status === 201) {
-        addSuccessfully("Added successfully");
+        addSuccessfully("Your application has been submitted");
         methods.reset();
-        setFormData({});
+        setFormDataStep1({});
+        setFormDataStep2({});
+        setFormDataStep3({});
         setStep(1);
+        setLoading(false);
       }
     } catch (error) {
-      console.log(error);
+      setLoading(false);
+      toastError("Something went wrong, please try again.");
     }
   };
 
@@ -126,8 +176,18 @@ const AllStep = () => {
                     </button>
                   )}
                   {step === 3 && (
-                    <button type="submit" className="next_btn">
-                      Submit
+                    <button
+                      type="submit"
+                      className="next_btn"
+                      disabled={loading ? true : false}
+                    >
+                      {!loading ? (
+                        "Submit"
+                      ) : (
+                        <CircularProgress
+                          sx={{ width: "25px", height: "25px" }}
+                        />
+                      )}
                     </button>
                   )}
                 </div>

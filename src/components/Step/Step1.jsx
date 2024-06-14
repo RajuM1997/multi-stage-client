@@ -1,10 +1,11 @@
+import React from "react";
 import { Grid } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";
 import PhoneInput from "react-phone-number-input";
-import DatePicker from "react-date-picker";
 import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
 import "./step.css";
+import CustomDatePicker from "../DatePicker/CustomDatePicker";
 
 const Step1 = () => {
   const {
@@ -21,8 +22,8 @@ const Step1 = () => {
             Full Name
           </label>
           <input id="name" {...register("name")} autoComplete="off" />
-          {errors.name && (
-            <span className="error_message">{errors.name.message}</span>
+          {errors?.name && (
+            <span className="error_message">{errors?.name?.message}</span>
           )}
         </Grid>
         <Grid item xs={12} md={12} lg={12}>
@@ -32,17 +33,19 @@ const Step1 = () => {
           <Controller
             name="dateOfBirth"
             control={control}
-            defaultValue={new Date()}
             render={({ field }) => (
-              <DatePicker
+              <CustomDatePicker
+                label="Date of Birth"
                 {...field}
                 onChange={field.onChange}
                 value={field.value}
               />
             )}
           />
-          {errors.date && (
-            <span className="error_message">{errors.dateOfBirth.message}</span>
+          {errors?.dateOfBirth && (
+            <span className="error_message">
+              {errors?.dateOfBirth?.message}
+            </span>
           )}
         </Grid>
         <Grid item xs={12} md={12} lg={12}>
@@ -54,8 +57,10 @@ const Step1 = () => {
             {...register("nationality")}
             autoComplete="off"
           />
-          {errors.nationality && (
-            <span className="error_message">{errors.nationality.message}</span>
+          {errors?.nationality && (
+            <span className="error_message">
+              {errors?.nationality?.message}
+            </span>
           )}
         </Grid>
         <Grid item xs={12} md={12} lg={12}>
@@ -68,8 +73,8 @@ const Step1 = () => {
             {...register("email")}
             autoComplete="off"
           />
-          {errors.email && (
-            <span className="error_message">{errors.email.message}</span>
+          {errors?.email && (
+            <span className="error_message">{errors?.email?.message}</span>
           )}
         </Grid>
         <Grid item xs={12} md={12} lg={12}>
@@ -80,9 +85,9 @@ const Step1 = () => {
             name="phone"
             control={control}
             rules={{ required: "Phone number is required" }}
-            autoComplete="off"
             render={({ field }) => (
               <PhoneInput
+                id="phone"
                 {...field}
                 defaultCountry="BD"
                 placeholder="Enter phone number"
@@ -90,8 +95,8 @@ const Step1 = () => {
               />
             )}
           />
-          {errors.phone && (
-            <span className="error_message_last">{errors.phone.message}</span>
+          {errors?.phone && (
+            <span className="error_message_last">{errors?.phone?.message}</span>
           )}
         </Grid>
       </Grid>

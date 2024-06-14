@@ -1,3 +1,4 @@
+import React from "react";
 import { Grid } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";
 import "./step.css";
@@ -20,16 +21,16 @@ const Step2 = () => {
           <Controller
             name="departureDate"
             control={control}
-            defaultValue={new Date()}
             render={({ field }) => (
               <DatePicker
+                label="Departure Date"
                 {...field}
                 onChange={field.onChange}
                 value={field.value}
               />
             )}
           />
-          {errors.date && (
+          {errors.departureDate && (
             <span className="error_message">
               {errors.departureDate.message}
             </span>
@@ -41,17 +42,18 @@ const Step2 = () => {
           </label>
           <Controller
             name="returnDate"
+            id="returnDate"
             control={control}
-            defaultValue={new Date()}
             render={({ field }) => (
               <DatePicker
                 {...field}
                 onChange={field.onChange}
                 value={field.value}
+                id="returnDate"
               />
             )}
           />
-          {errors.date && (
+          {errors.returnDate && (
             <span className="error_message">{errors.returnDate.message}</span>
           )}
         </Grid>
@@ -59,7 +61,11 @@ const Step2 = () => {
           <label htmlFor="accommodationPreference" className="input_label">
             Accommodation Preference
           </label>
-          <select {...register("accommodationPreference")} defaultValue="">
+          <select
+            id="accommodationPreference"
+            {...register("accommodationPreference")}
+            defaultValue=""
+          >
             <option value="" disabled>
               Please Select
             </option>
@@ -76,7 +82,11 @@ const Step2 = () => {
           <label htmlFor="preferences" className="input_label">
             Special Requests or Preferences
           </label>
-          <input id="preferences" {...register("preferences")} />
+          <input
+            id="preferences"
+            {...register("preferences")}
+            autoComplete="off"
+          />
           {errors.preferences && (
             <span className="error_message_last">
               {errors.preferences.message}
