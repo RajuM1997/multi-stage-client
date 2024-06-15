@@ -1,4 +1,4 @@
-# Multi-Stage Mars Visit Application Form
+# Multi-Stage Mars Visit Application Form client
 
 This project is a multi-step form application for Mars visit applicants. It uses React, React Hook Form, Zod for schema validation, and React Testing Library for testing. The application is containerized using Docker.
 
