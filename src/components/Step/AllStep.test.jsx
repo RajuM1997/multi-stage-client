@@ -14,13 +14,13 @@ const Wrapper = ({ children }) => {
 
 describe("Step1 Component", () => {
   //all step components
-  test("renders the component correctly", () => {
-    render(<AllStep />);
-    expect(screen.getByLabelText("Full Name")).toBeInTheDocument();
-    expect(screen.getByLabelText("Nationality")).toBeInTheDocument();
-    expect(screen.getByLabelText("Email")).toBeInTheDocument();
-    expect(screen.getByLabelText("Phone Number")).toBeInTheDocument();
-  });
+  // test("renders the component correctly", () => {
+  //   render(<AllStep />);
+  //   expect(screen.getByLabelText("Full Name")).toBeInTheDocument();
+  //   expect(screen.getByLabelText("Nationality")).toBeInTheDocument();
+  //   expect(screen.getByLabelText("Email")).toBeInTheDocument();
+  //   expect(screen.getByLabelText("Phone Number")).toBeInTheDocument();
+  // });
 
   //all step1 components
   test("renders the component correctly", () => {

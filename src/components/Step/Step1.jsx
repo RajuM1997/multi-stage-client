@@ -21,7 +21,12 @@ const Step1 = () => {
           <label htmlFor="name" className="input_label">
             Full Name
           </label>
-          <input id="name" {...register("name")} autoComplete="off" />
+          <input
+            id="name"
+            {...register("name")}
+            autoComplete="off"
+            data-testid="Full Name"
+          />
           {errors?.name && (
             <span className="error_message">{errors?.name?.message}</span>
           )}
@@ -36,6 +41,7 @@ const Step1 = () => {
             render={({ field }) => (
               <CustomDatePicker
                 label="Date of Birth"
+                data-testid="Date of Birth"
                 {...field}
                 onChange={field.onChange}
                 value={field.value}
@@ -55,6 +61,7 @@ const Step1 = () => {
           <input
             id="nationality"
             {...register("nationality")}
+            data-testid="Nationality"
             autoComplete="off"
           />
           {errors?.nationality && (
@@ -72,6 +79,7 @@ const Step1 = () => {
             id="email"
             {...register("email")}
             autoComplete="off"
+            data-testid="Email"
           />
           {errors?.email && (
             <span className="error_message">{errors?.email?.message}</span>
@@ -92,6 +100,7 @@ const Step1 = () => {
                 defaultCountry="BD"
                 placeholder="Enter phone number"
                 className="phone_input"
+                data-testid="Phone Number"
               />
             )}
           />

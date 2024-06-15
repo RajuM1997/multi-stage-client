@@ -53,7 +53,8 @@
   margin-top: 0.2rem;
 }
 .previous_btn,
-.next_btn {
+.next_btn,
+.hidden_previous_btn {
   width: 150px;
   height: 45px;
   padding: 5px;
@@ -80,6 +81,9 @@
   background-color: transparent;
   color: #fff;
   border: 2px solid #fff;
+}
+.hidden_previous_btn {
+  visibility: hidden;
 }
 
 .error_message {

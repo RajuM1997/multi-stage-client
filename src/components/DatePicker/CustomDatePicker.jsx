@@ -3,7 +3,7 @@ import DatePicker from "react-date-picker";
 
 const CustomDatePicker = ({ ...props }) => (
   <div>
-    <DatePicker {...props} />
+    <DatePicker {...props} data-testid="Date of Birth" />
   </div>
 );
 

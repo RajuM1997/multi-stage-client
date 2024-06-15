@@ -65,6 +65,7 @@ const Step2 = () => {
             id="accommodationPreference"
             {...register("accommodationPreference")}
             defaultValue=""
+            data-testid="accommodationPreference"
           >
             <option value="" disabled>
               Please Select
@@ -79,13 +80,14 @@ const Step2 = () => {
           )}
         </Grid>
         <Grid item xs={12} md={12} lg={12}>
-          <label htmlFor="preferences" className="input_label">
+          <label htmlFor="specialRequestsOrPreferences" className="input_label">
             Special Requests or Preferences
           </label>
           <input
-            id="preferences"
+            id="specialRequestsOrPreferences"
             {...register("preferences")}
             autoComplete="off"
+            data-testid="specialRequestsOrPreferences"
           />
           {errors.preferences && (
             <span className="error_message_last">

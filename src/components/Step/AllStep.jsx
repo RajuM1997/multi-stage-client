@@ -61,7 +61,9 @@ const AllStep = () => {
         default:
           break;
       }
-      setStep((prevStep) => prevStep + 1);
+      setStep((prevStep) => {
+        return prevStep + 1;
+      });
     }
   }, [methods, step]);
 
@@ -77,7 +79,9 @@ const AllStep = () => {
         default:
           break;
       }
-      setStep((prevStep) => prevStep - 1);
+      setStep((prevStep) => {
+        return prevStep - 1;
+      });
     }
   }, [methods, step]);
 
@@ -157,20 +161,23 @@ const AllStep = () => {
                     step === 1 ? "btn_container_init" : "btn_container"
                   }
                 >
-                  {step > 1 && (
-                    <button
-                      type="button"
-                      className="previous_btn"
-                      onClick={handlePrevious}
-                    >
-                      Previous
-                    </button>
-                  )}
+                  <button
+                    type="button"
+                    className={
+                      step > 1 ? "previous_btn" : "hidden_previous_btn"
+                    }
+                    onClick={handlePrevious}
+                    data-testid="previous-button"
+                  >
+                    Previous
+                  </button>
+
                   {step < 3 && (
                     <button
                       type="button"
-                      className="next_btn"
                       onClick={handleNext}
+                      data-testid="next-button"
+                      className="next_btn"
                     >
                       Next
                     </button>
@@ -180,6 +187,7 @@ const AllStep = () => {
                       type="submit"
                       className="next_btn"
                       disabled={loading ? true : false}
+                      data-testid="submit-button"
                     >
                       {!loading ? (
                         "Submit"
