@@ -2,7 +2,7 @@
 
 This project is a multi-step form application for Mars visit applicants. It uses React, React Hook Form, Zod for schema validation, and React Testing Library for testing. The application is containerized using Docker.
 
-[Live Site Link:](https://mars-journey.netlify.app)
+[Live Site Link:](https://mars-journey.netlify.app) https://mars-journey.netlify.app
  
 
 ## Prerequisites
